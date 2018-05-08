@@ -1,0 +1,27 @@
+---
+title: "Lecture11"
+author: "Ashley Lee"
+date: "5/8/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Section 1
+**Q1.** What proportion of PDB entries does X-ray crystallography account for? What proportion of
+structures are protein?
+**A1.** Yearly: 3135; Total: 125271
+
+```{r}
+pdb.stats <- read.csv("Data Export Summary.csv")
+```
+
+Let's calculate something!
+
+```{r}
+percent <- (pdb.stats$Total / sum (pdb.stats$Total)*100)
+names(percent) <- pdb.stats$Experimental.Method
+percent 
+```
