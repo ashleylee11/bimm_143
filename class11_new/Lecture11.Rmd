@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Section 1
+## Section 1: Introduction to the RCSB Protein Data Bank (PDB)
 **Q1.** What proportion of PDB entries does X-ray crystallography account for? What proportion of
 structures are protein?
 **A1.** Yearly: 3135; Total: 125271
@@ -25,3 +25,153 @@ percent <- (pdb.stats$Total / sum (pdb.stats$Total)*100)
 names(percent) <- pdb.stats$Experimental.Method
 percent 
 ```
+
+**Q2.** Type HIV in the search box on the home page and determine how many HIV-1 protease
+structures are in the current PDB?
+
+
+## Section 2: Visualizing the HIV-1 Protease Structure
+In this section we will use the 2Å resolution X-ray crystal structure of HIV-1 protease with a bound drug molecule indinavir (PDB ID: 1HSG) [3]. We will use the VMD molecular viewer to
+visually inspect the protein, the binding site and the drug molecule. 
+
+**Q3.** Water molecules normally have 3 atoms. Why do we see just one atom per water molecule
+in this structure?
+
+**Q4.** There is a conserved water molecule in the binding site. Can you identify this water
+molecule? What residue number does this water molecule have?
+
+**Q5.** As you have hopefully observed HIV protease is a homodimer (i.e. it is composed of two identical chains). With the aid of the graphic display and the sequence viewer extension can you identify secondary structure elements that are likely to only form in the dimer rather than the monomer?
+
+
+## Section 3: Introduction to Bio3D in R
+
+### 3.1: Getting Started 
+
+```{r}
+library(bio3d)
+```
+
+### 3.2: Bio3D Functions and Their Typical Usage
+
+```{r}
+example(plot.bio3d)
+```
+
+### 3.3 Working with Individual PDB Files
+
+### 3.4 Reading PDB file data into R
+
+```{r}
+pdb <- read.pdb("1hsg")
+print(pdb)
+```
+
+**Q6.** How many amino acid residues are there in this pdb object and what are the two nonprotein residues?
+**A6.** There are 198 residues and the two nonprotein residues are water and MK1.
+
+```{r}
+# To find the attributes of any such object
+attributes(pdb)
+```
+
+```{r}
+# Access the atom attribute of "pdb""
+head(pdb$atom)
+
+# Print a subset of $atom data for the first two atoms
+pdb$atom[1:2, c("eleno", "elety", "x","y","z")]
+
+# Note that individual $atom records can also be accessed like this
+pdb$atom$elety[1:2]
+
+# Which allows us to do the following
+plot.bio3d(pdb$atom$b[pdb$calpha], sse=pdb, typ="l", ylab="B-factor")
+```
+
+**Q7.** What type of R object is pdb$atom? HINT: You can always use the str() function to get a useful summery of any R object.
+
+```{r}
+# Print a summary of the coordinate data in $xyz
+pdb$xyz
+
+# Examine the row and column dimensions
+dim(pdb$xyz)
+
+# Print coordinates for the first two atom
+pdb$xyz[ 1, atom2xyz(1:2) ]
+```
+
+### 3.5 Atom selection
+```{r}
+# Select all C-alpha atoms (return their indices)
+## ca.inds <- atom.select(pdb, "calpha")
+## ca.inds
+
+# Print details of the first few selected atoms
+## head( pdb$atom[ca.inds$atom, ]
+
+# And selected xyz coordinates
+## head( pdb$xyz[, ca.inds$xyz] )
+```
+
+```{r}
+# Select chain A
+## a.inds <- atom.select(pdb, chain="A")
+
+# Select C-alphas of chain A
+## ca.inds <- atom.select(pdb, "calpha", chain="A")
+
+# We can combine multiple selection criteria to return their intersection
+## cab.inds <- atom.select(pdb, elety=c("CA","CB"), chain="A", resno=10:20)
+```
+
+**Q8.** Use the Bio3D write.pdb() function to write out a new C-alpha atom only PDB file for
+viewing in VMD.
+**A8.**
+
+```{r}
+# Select all C-alpha atoms (return their indices)
+inds <- atom.select(pdb, "calpha")
+inds
+```
+
+```{r}
+# Check if we have what we want.
+head(pdb$atom[inds$atom,])
+```
+
+```{r}
+# Looks good, so let's continue to trim our PDB and write it out
+ca.pdb <- trim.pdb(pdb, inds=inds)
+ca.pdb
+
+write.pdb(ca.pdb, file="calpha_only.pdb")
+```
+
+Open resulting file in VMD!
+
+## Section 4: Working with Multiple PDB Files
+
+### 4.1 Installing the Stand-Alone Muscle Alignment Program
+Download MUSCLE program! 
+
+### 4.2 Aligning Multiple Structures
+```{r}
+# Download some example PDB files
+ids <- c("1TND_B","1AGR_A","1TAG_A","1GG2_A","1KJY_A","4G5Q_A")
+files <- get.pdb(ids, split = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
