@@ -44,15 +44,41 @@ write.pdb(lig, file="1hsg_ligand.pdb")
 ```
 
 ## 1.3 Using AutoDockTools to Setup Protein Docking Input
-```{r}
+Download AutoDockTools and setup protein
 
+## 1.4 Prepare the Ligand 
+Prepare ligand using ADT
+
+## 1.5 Prepare a Docking Configuration File 
+Create "config.txt" file 
+
+# Section 2: Docking Ligands into HIV-1 Protease
+
+## 2.1 Download Autodock Vina 
+Download Autodock Vina and access through terminal
+
+## 2.2 Docking Indinavir into HIV-1 protease  
+Using terminal, dock Indinvair into HIV-1 protease and generate "all.pdbqt""
+
+## 2.3 Inspecting Your Docking Results 
+
+```{r}
+library(bio3d)
+res <- read.pdb("all.pdbqt", multi=TRUE)
+
+write.pdb(res, "result.pdb")
+```
+
+```{r}
+ori <- read.pdb("1hsg_ligand.pdbqt")
+
+rmsd(ori, res)
 ```
 
 
+# OPTIONAL: Section 3: Exploring the Conformational Dynamics of Proteins 
 
-
-
-
+Watch introduction video.
 
 
 
