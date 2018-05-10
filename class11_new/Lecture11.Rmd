@@ -162,6 +162,139 @@ ids <- c("1TND_B","1AGR_A","1TAG_A","1GG2_A","1KJY_A","4G5Q_A")
 files <- get.pdb(ids, split = TRUE)
 ```
 
+```{r}
+# Extract and align the chains we are interested in
+pdbs <- pdbaln(files, fit = TRUE)
+
+# Print to screen a summary of the 'pdbs' object
+pdbs
+```
+
+**Q9.** What effect does setting the fit=TRUE option have in the related rmsd() function? What does RMSD measure and what would the results indicate if you set fit=FALSE or
+removed this option?
+
+```{r}
+# Access the first 5 rows, and 8 columns
+pdbs$ali[1:5, 1:8]
+
+# Associated residues numbers
+pdbs$resno[1:5, 1:8]
+```
+
+```{r}
+# Inspect alignment for gaps
+gaps <- gap.inspect(pdbs$ali)
+
+# Indices of non-gap columns
+head(gaps$f.inds)
+
+# Access non-gap columns
+pdbs$ali[, gaps$f.inds]
+```
+
+### Section 4.3 Basic structure analysis
+
+```{r}
+# Calculate sequence identity
+seqidentity(pdbs)
+
+# Calculate RMSD
+rmsd(pdbs)
+```
+
+## Section 5: Example Application on Adenylate Kinase (Adk)
+
+### 5.1 Search and Retrieve Adenylate Kinase Structures
+
+```{r}
+aa <- get.seq("1ake_A")
+aa
+```
+
+```{r, cache=TRUE}
+# Blast or hmmer search
+b <- blast.pdb(aa)
+```
+
+```{r}
+# Plot a summary of search results
+hits <- plot(b)
+```
+
+```{r}
+head(hits$pdb.id)
+```
+
+```{r}
+# Fetch PDBs
+files <- get.pdb(hits$pdb.id, path = "pdbs", split = TRUE, gzip = TRUE)
+
+# Align structures
+pdbs <- pdbaln(files)
+
+# Vector containing PDB codes
+ids <- basename.pdb(pdbs$id)
+
+# Draw schematic alignment
+plot(pdbs, labels=ids)
+```
+
+
+### Section 5.2: Sequence Conservation Analysis
+
+```{r}
+# Calculate sequence conservation
+cons <- conserv(pdbs, method="entropy22")
+
+# SSE annotations
+sse <- pdbs2sse(pdbs, ind=1, rm.gaps=FALSE)
+
+# Plot conservation per residue
+plotb3(cons, sse=sse, ylab="Sequence entropy")
+```
+
+### Section 5.3: Annotate collected PDB structures
+
+```{r}
+# anno <- pdb.annotate(ids) - Need to install XML and RCurl package from CRAN
+# print(unique(anno$source))
+```
+
+### Section 5.4: Principal Component Analysis 
+
+```{r}
+# Find invariant core
+core <- core.find(pdbs)
+
+# Superimpose all structures to core
+pdbs$xyz = pdbfit(pdbs, core)
+
+# Perform PCA
+pc.xray <- pca(pdbs)
+```
+
+```{r}
+# Calculate RMSD
+rd <- rmsd(pdbs)
+
+# Structure-based clustering
+hc.rd <- hclust(dist(rd))
+grps.rd <- cutree(hc.rd, k=3)
+
+plot(pc.xray, 1:2, col="grey50", bg=grps.rd, pch=21, cex=1)
+```
+
+```{r}
+# Left-click on a point to label and right-click to end
+# identify (pc.xray$z[,1:2], labels=basename.pdb(pdbs$id)) - error
+```
+
+
+
+
+
+
+
 
 
 
