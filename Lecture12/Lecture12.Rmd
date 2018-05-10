@@ -1,0 +1,77 @@
+---
+title: "Structural Bioinformatics Class 12"
+author: "Ashley Lee"
+date: "5/10/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Section 1: In Silico Docking of Drugs to HIV-1 Protease 
+
+## 1.1 Obtaining and Inspecting Our Input Structure 
+
+Load Bio3D package and obtain PDB file of "1HSG" from RCSB PDB database.
+```{r}
+library(bio3d)
+file.name <- get.pdb("1hsg")
+```
+
+Read the PDB structure into R. 
+```{r}
+hiv <- read.pdb(file.name)
+```
+
+Quick summary of "hiv."
+```{r}
+hiv
+```
+
+## 1.2 Prepare Initial Protein and Ligand Input Files 
+
+Separate new protein only PDB format file and separate ligand only PDB format file. 
+```{r}
+prot <- trim.pdb(hiv, "protein")
+lig <- trim.pdb(hiv, "ligand")
+```
+
+Write out these new PDB files so we can use them for docking
+```{r}
+write.pdb(prot, file="1hsg_protein.pdb")
+write.pdb(lig, file="1hsg_ligand.pdb")
+```
+
+## 1.3 Using AutoDockTools to Setup Protein Docking Input
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
