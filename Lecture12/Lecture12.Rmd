@@ -75,6 +75,14 @@ ori <- read.pdb("1hsg_ligand.pdbqt")
 rmsd(ori, res)
 ```
 
+```{r}
+inds.res <- atom.select(res,"noh")
+```
+
+```{r}
+# res$xyz[,inds.res$xyz]
+rmsd(lig, res$xyz[,inds.res$xyz])
+```
 
 # OPTIONAL: Section 3: Exploring the Conformational Dynamics of Proteins 
 

@@ -169,7 +169,43 @@ write.pdb(lig, file=&quot;1hsg_ligand.pdb&quot;)</code></pre>
 </div>
 <div id="using-autodocktools-to-setup-protein-docking-input" class="section level2">
 <h2>1.3 Using AutoDockTools to Setup Protein Docking Input</h2>
+<p>Download AutoDockTools and setup protein</p>
 </div>
+<div id="prepare-the-ligand" class="section level2">
+<h2>1.4 Prepare the Ligand</h2>
+<p>Prepare ligand using ADT</p>
+</div>
+<div id="prepare-a-docking-configuration-file" class="section level2">
+<h2>1.5 Prepare a Docking Configuration File</h2>
+<p>Create “config.txt” file</p>
+</div>
+</div>
+<div id="section-2-docking-ligands-into-hiv-1-protease" class="section level1">
+<h1>Section 2: Docking Ligands into HIV-1 Protease</h1>
+<div id="download-autodock-vina" class="section level2">
+<h2>2.1 Download Autodock Vina</h2>
+<p>Download Autodock Vina and access through terminal</p>
+</div>
+<div id="docking-indinavir-into-hiv-1-protease" class="section level2">
+<h2>2.2 Docking Indinavir into HIV-1 protease</h2>
+<p>Using terminal, dock Indinvair into HIV-1 protease and generate “all.pdbqt”&quot;</p>
+</div>
+<div id="inspecting-your-docking-results" class="section level2">
+<h2>2.3 Inspecting Your Docking Results</h2>
+<pre class="r"><code>library(bio3d)
+res &lt;- read.pdb(&quot;all.pdbqt&quot;, multi=TRUE)
+
+write.pdb(res, &quot;result.pdb&quot;)</code></pre>
+<pre class="r"><code>ori &lt;- read.pdb(&quot;1hsg_ligand.pdbqt&quot;)
+
+rmsd(ori, res)</code></pre>
+<pre><code>##  [1]  0.590 11.163 10.531  4.364 11.040  3.682  5.741  3.864  5.442 10.920
+## [11]  4.318  6.249 11.084  8.929</code></pre>
+</div>
+</div>
+<div id="optional-section-3-exploring-the-conformational-dynamics-of-proteins" class="section level1">
+<h1>OPTIONAL: Section 3: Exploring the Conformational Dynamics of Proteins</h1>
+<p>Watch introduction video.</p>
 </div>
 
 
