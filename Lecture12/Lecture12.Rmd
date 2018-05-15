@@ -84,10 +84,9 @@ inds.res <- atom.select(res,"noh")
 rmsd(lig, res$xyz[,inds.res$xyz])
 ```
 
-# OPTIONAL: Section 3: Exploring the Conformational Dynamics of Proteins 
+# OPTIONAL: Section 3: Explorsing the Conformational Dynamics of Proteins 
 
 Watch introduction video.
-
 
 
 
