@@ -1,0 +1,122 @@
+---
+title: "Find A Gene Project"
+author: "Ashley Lee"
+date: "5/24/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+Load the bio3d package.
+```{r}
+library(bio3d)
+library(dplyr)
+library(tidyr)
+```
+
+# Question 7
+
+## Generate a Heat Map
+```{r}
+# Read FASTA file generated from SeaView
+fasta <- read.fasta("fasta_file")
+```
+
+```{r}
+# Calculate a sequence identity matrix
+seq_fasta <- seqidentity(fasta)
+```
+
+```{r}
+# Generate a heatmap of aligned sequences 
+heat_map <- heatmap(seq_fasta, margins = c(10,10))
+```
+
+# Question 8
+
+## Structure
+
+Search the main protein structure database for the most similar atomic resolution structures to aligned sequences.
+```{r}
+# Create a consensus sequence from aligned sequences
+con_seq <- consensus(fasta)
+```
+
+```{r}
+# Run BLASTP on generated consensus sequence
+blast_pdb <- blast.pdb(con_seq$seq, database = "pdb", time.out = NULL, chain.single = TRUE)
+```
+
+```{r}
+blast_pdb
+```
+
+```{r}
+# Retreive BLASTP results 
+get.blast(blast_pdb$url, time.out = NULL, chain.single = TRUE)
+```
+
+```{r}
+# Plot BLAST results
+blast_plot <- plot.blast(blast_pdb)
+```
+
+```{r}
+# Clean up the data with hit.tbl output
+blast_pdb_hits <- blast_pdb$hit.tbl
+head(blast_pdb_hits)
+```
+
+```{r}
+# Annotate the top 3 BLAST results
+pdb_anno <- pdb.annotate(blast_pdb_hits$subjectids, unique=TRUE)
+pdb_anno_un <- pdb_anno[!duplicated(pdb_anno$source), ]
+pdb_final <- head(pdb_anno_un, 3)
+pdb_final
+```
+
+```{r}
+# Select wanted information from BLAST results
+sep_blast3 <- separate(blast_pdb_hits, subjectids, into=c("structureId","chainId"))
+blast3_sel <- select(sep_blast3, structureId, identity, evalue)
+B1FFX <- subset(blast3_sel, blast3_sel$structureId =="1FFX")
+B5KMG <- subset(blast3_sel, blast3_sel$structureId =="5KMG")
+B5CA1 <- subset(blast3_sel, blast3_sel$structureId =="5CA1")
+draftBlast <- bind_rows(B1FFX, B5KMG, B5CA1)
+finalBlast <- subset(draftBlast, draftBlast$evalue == 0.00e+00)
+finalBlast
+```
+
+```{r}
+# Select wanted information from annotation results
+pdb_anno_sel <- select(pdb_anno_un, structureId, experimentalTechnique, resolution, source)
+head(pdb_anno_sel, 3)
+```
+
+```{r}
+# Merge blast3_sel and pdb_anno_sel data
+mergedata <- merge(finalBlast, pdb_anno_sel, by = "structureId")
+
+# Rearrange data
+final <- mergedata[c("structureId", "experimentalTechnique", "resolution", "source", "evalue", "identity")]
+final
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
