@@ -207,9 +207,9 @@ class(g)
 g
 ```
 
-    ## IGRAPH 9b33653 UNW- 845 1544 -- 
+    ## IGRAPH b932a57 UNW- 845 1544 -- 
     ## + attr: name (v/c), weight (e/n)
-    ## + edges from 9b33653 (vertex names):
+    ## + edges from b932a57 (vertex names):
     ##  [1] ph_1061 --AACY020068177 ph_1258 --AACY020207233
     ##  [3] ph_3164 --AACY020207233 ph_1033 --AACY020255495
     ##  [5] ph_10996--AACY020255495 ph_11038--AACY020255495
@@ -242,7 +242,7 @@ Note that we can query (and set) vertex and edge attributes with the V() and E()
 V(g)
 ```
 
-    ## + 845/845 vertices, named, from 9b33653:
+    ## + 845/845 vertices, named, from b932a57:
     ##   [1] ph_1061       ph_1258       ph_3164       ph_1033       ph_10996     
     ##   [6] ph_11038      ph_11040      ph_11048      ph_11096      ph_1113      
     ##  [11] ph_1208       ph_13207      ph_1346       ph_14679      ph_1572      
@@ -259,7 +259,7 @@ V(g)
 E(g)
 ```
 
-    ## + 1544/1544 edges from 9b33653 (vertex names):
+    ## + 1544/1544 edges from b932a57 (vertex names):
     ##  [1] ph_1061 --AACY020068177 ph_1258 --AACY020207233
     ##  [3] ph_3164 --AACY020207233 ph_1033 --AACY020255495
     ##  [5] ph_10996--AACY020255495 ph_11038--AACY020255495
@@ -717,15 +717,6 @@ newnet <- createWindowFromSelection(cw2,
 
 ``` r
 layoutNetwork(newnet, "force-directed")
-```
-
-Save the image generated in Cytoscape into R.
-
-``` r
-saveImage(newnet,
-          file.name = "final",
-          image.type = "png",
-          h = 600)
 ```
 
 References

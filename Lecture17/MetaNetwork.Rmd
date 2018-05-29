@@ -395,14 +395,6 @@ newnet <- createWindowFromSelection(cw2,
 layoutNetwork(newnet, "force-directed")
 ```
 
-Save the image generated in Cytoscape into R.
-```{r}
-saveImage(newnet,
-          file.name = "final",
-          image.type = "png",
-          h = 600)
-```
-
 # References 
 References
 Brum, Jennifer R., J. Cesar Ignacio-Espinoza, Simon Roux, Guilhem Doulcier, Silvia G. Acinas, Adriana Alberti, Samuel Chaffron, et al. 2015. “Patterns and Ecological Drivers of Ocean Viral Communities.” Science 348 (6237): 1261498. http://www.sciencemag.org/content/348/6237/1261498.short.
