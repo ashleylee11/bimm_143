@@ -403,7 +403,17 @@ saveImage(newnet,
           h = 600)
 ```
 
+# References 
+References
+Brum, Jennifer R., J. Cesar Ignacio-Espinoza, Simon Roux, Guilhem Doulcier, Silvia G. Acinas, Adriana Alberti, Samuel Chaffron, et al. 2015. “Patterns and Ecological Drivers of Ocean Viral Communities.” Science 348 (6237): 1261498. http://www.sciencemag.org/content/348/6237/1261498.short.
 
+Lima-Mendez, Gipsi, Karoline Faust, Nicolas Henry, Johan Decelle, Sébastien Colin, Fabrizio Carcillo, Samuel Chaffron, et al. 2015. “Determinants of Community Structure in the Global Plankton Interactome.” Science 348 (6237). doi:10.1126/science.1262073.
+
+Sunagawa, Shinichi, Luis Pedro Coelho, Samuel Chaffron, Jens Roat Kultima, Karine Labadie, Guillem Salazar, Bardya Djahanschiri, et al. 2015. “Structure and Function of the Global Ocean Microbiome.” Science 348 (6237): 1261359. http://www.sciencemag.org/content/348/6237/1261359.short.
+
+Venter, J. Craig, Karin Remington, John F. Heidelberg, Aaron L. Halpern, Doug Rusch, Jonathan A. Eisen, Dongying Wu, et al. 2004. “Environmental Genome Shotgun Sequencing of the Sargasso Sea.” Science 304 (5667): 66–74. doi:10.1126/science.1093857.
+
+Weiss, Sophie, Will Van Treuren, Catherine Lozupone, Karoline Faust, Jonathan Friedman, Ye Deng, Li Charlie Xia, et al. 2016. “Correlation Detection Strategies in Microbial Data Sets Vary Widely in Sensitivity and Precision.” ISME J 10 (7): 1669–81. http://dx.doi.org/10.1038/ismej.2015.235.
 
 
 
